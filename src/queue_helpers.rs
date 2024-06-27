@@ -65,7 +65,7 @@ mod std {
 
 #[cfg(feature = "bb-queue")]
 mod no_std {
-    use core::{convert::Infallible, future::poll_fn, task::Poll};
+    use core::{future::poll_fn, task::Poll};
 
     use bbqueue::{
         framed::{FrameConsumer, FrameGrantR, FrameProducer},
@@ -156,6 +156,10 @@ mod no_std {
         queue: &'a FramedQueue<N>,
         grant: Option<FrameGrantR<'a, N>>,
     }
+
+    #[derive(Debug)]
+    #[derive_format_or_debug]
+    pub enum Infallible {}
 
     impl<'a, const N: usize> crate::ApplicationDataReceiver for Receiver<'a, N> {
         type Error = Infallible;
